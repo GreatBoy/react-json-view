@@ -1,7 +1,7 @@
 "use strict"
 
 //import react and reactDom for browser rendering
-import React from "react"
+import React, {Component} from "react"
 import ReactDom from "react-dom"
 
 import Moment from "moment"
@@ -9,11 +9,76 @@ import Moment from "moment"
 //import the react-json-view component (installed with npm)
 import JsonViewer from "./../../src/js/index"
 
+
+
+class Test extends Component {
+
+    state = {
+        collapsed: true
+    }
+    render() {
+        let {collapsed} = this.state;
+        return <JsonViewer
+            onToggleCollapse={event => {
+                if (!event) {
+                    this.setState({
+                        collapsed: event
+                    });
+                } else {
+                    this.setState({
+                        collapsed: event
+                    });
+                }
+            }}
+            collapsed={collapsed}
+            style={{ padding: "30px", backgroundColor: "white" }}
+            src={{
+                test: 1,
+                test: 1,
+                test: 1,
+                test: 1,
+                test: 1,
+                test: 1,
+                array: [1,2,3,3]
+            }}
+            onEdit={e => {
+                console.log("edit callback", e)
+                if (e.new_value == "error") {
+                    return false
+                }
+            }}
+            onDelete={e => {
+                console.log("delete callback", e)
+            }}
+            onAdd={e => {
+                console.log("add callback", e)
+                if (e.new_value == "error") {
+                    return false
+                }
+            }}
+            onSelect={e => {
+                console.log("select callback", e)
+                console.log(e.namespace)
+            }}
+            name={"dev-server"}
+        />;
+    }
+}
+
+
+
 //render 2 different examples of the react-json-view component
 ReactDom.render(
     <div>
+
+        <Test/>
+
         {/* just pass in your JSON to the src attribute */}
         <JsonViewer
+            onToggleCollapse={event => {
+                debugger;
+            }}
+            collapsed={false}
             sortKeys
             style={{ padding: "30px", backgroundColor: "white" }}
             src={getExampleJson1()}

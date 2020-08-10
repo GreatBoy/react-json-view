@@ -89,6 +89,7 @@ class RjvObject extends React.PureComponent {
                 'expanded',
                 this.state.expanded
             );
+            this.props.onToggleCollapse && this.props.onToggleCollapse(!this.state.expanded);
         });
     }
 
